@@ -1,0 +1,67 @@
+﻿//Câu 1: Tổng số lượng sản phẩm đã bán ra theo danh mục sản phẩm
+
+select NON EMPTY [Dim Products].[Category].children on 1,
+[Measures].[Quantity] on 0
+from [Data Warehouse Super Store];
+
+//Câu 2: Lợi nhuận theo từng khu vực trong năm 2015
+
+select [Measures].[Profit] on 0,
+NON EMPTY [Dim Locations].[Region].children on 1
+from [Data Warehouse Super Store]
+where [Dim Time].[Order Year].&[2015];
+
+//Câu 3 : Sắp xếp doanh số giảm dần theo từng tháng.
+
+select [Measures].[Sales] on 0,
+NON EMPTY Order ({[Dim Time].[Order Month].children},[Measures].[Sales], desc ) on 1
+from [Data Warehouse Super Store]
+
+//Câu 4: Số lượng mua hàng của các thành phố ở khu vực Central
+
+select [Measures].[Quantity] on 0, 
+NON EMPTY Order ({[Dim Locations].[State].children}, [Measures].[Quantity]) on 1
+from [Data Warehouse Super Store]
+where [Dim Locations].[Region].&[Central];
+ 
+//Câu 5: Thống kê doanh số bán hàng của danh mục Furniture.
+select [Measures].[Sales] on 0, 
+		 Order ({[Dim Products].[Category].&[Furniture]}, [Measures].[Quantity]) on 1
+from [Data Warehouse Super Store]
+//Câu 6 : In ra những khách hàng đã mua mà không kèm theo giảm giá .
+
+select {[Measures].[Quantity],[Measures].[Discount]} on 0,
+EXCEPT ( 
+	{FILTER ( [Dim Customers].[Customer Name].children, [Measures].[Quantity])},
+	{FILTER ( [Dim Customers].[Customer Name].children, [Measures].[Discount] > 0) } 
+	) on 1
+from [Data Warehouse Super Store]
+
+//Câu 7 : Cho biết top 10 khách hàng mua hàng với số tiền hằng năm lớn nhất
+
+select [Measures].[Sales] on 0,
+head (
+Order ([Dim Customers].[Customer ID].children,[Measures].[Sales], desc),10) on 1
+from [Data Warehouse Super Store];
+
+//Câu 8 : Thống kê top 10 thành phố đã bán có lợi nhuận cao nhất 
+select [Measures].[Profit] on 0,
+head (
+Order ([Dim Locations].[City].children,[Measures].[Profit], desc),10) on 1
+from [Data Warehouse Super Store];
+
+//Câu 9: Thống kê tổng lợi nhuận của năm 2015 và 2017 
+
+select [Measures].[Profit] on 1,
+{[Dim Time].[Order Year].&[2015],[Dim Time].[Order Year].&[2017]} on 0
+from [Data Warehouse Super Store]
+
+//Câu 10 : Thống kê top 15 bang có doanh số và lợi nhuận cao nhất năm 2014
+select {[Measures].[Sales], [Measures].[Profit]} on 0,
+head (
+intersect   ( 
+	{FILTER ( Order ({[Dim Locations].[State].children},[Measures].[Sales], desc ), [Dim Time].[Order Year])},
+	{FILTER ( Order ({[Dim Locations].[State].children},[Measures].[Profit], desc ), [Dim Time].[Order Year])}
+		),15) on 1
+from [Data Warehouse Super Store]
+where {[Dim Time].[Order Year].&[2014]};

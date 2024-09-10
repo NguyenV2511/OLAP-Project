@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="NGUYEN_MSSQLSERVER2023.DataWarehouse_SuperStore"
+  DTS:DTSID="{B42F6149-8C0B-4698-817B-83154010732C}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=NGUYEN\MSSQLSERVER2023;Initial Catalog=DataWarehouse_SuperStore;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-SSIS_SuperStore_official-{B42F6149-8C0B-4698-817B-83154010732C}NGUYEN\MSSQLSERVER2023.DataWarehouse_SuperStore;Auto Translate=False;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

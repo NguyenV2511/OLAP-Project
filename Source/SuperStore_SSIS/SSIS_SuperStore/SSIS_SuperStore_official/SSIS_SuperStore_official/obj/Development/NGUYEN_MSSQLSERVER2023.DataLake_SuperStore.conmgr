@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="NGUYEN_MSSQLSERVER2023.DataLake_SuperStore"
+  DTS:DTSID="{01A4F03B-9137-41FE-B044-800A8B2D5DFE}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=NGUYEN\MSSQLSERVER2023;Initial Catalog=DataLake_SuperStore;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-SSIS_SuperStore_official-{01A4F03B-9137-41FE-B044-800A8B2D5DFE}NGUYEN\MSSQLSERVER2023.DataLake_SuperStore;Auto Translate=False;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
